@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import { AnimatePresence } from "framer-motion";
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import ScrollToTop from "./scrollToTop";
+import Home from "./Pages/Home";
+import Crypto from "./Pages/Crypto";
+import SingleCrypto from "./Pages/SingleCrypto";
+import News from "./Pages/News";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { getStats } from "./Redux/statsReducer";
+import { getCoins } from "./Redux/coinsReducer";
+import { getNews } from "./Redux/newsReducer";
 
-function App() {
+const App = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getStats());
+    dispatch(getCoins(100));
+    dispatch(getNews("crypto", 6));
+  }, [dispatch]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AnimatePresence>
+      <ScrollToTop>
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route exact path="/News" element={<News />} />
+          <Route exact path="/crypto" element={<Crypto />} />
+          <Route path="/crypto/:id" element={<SingleCrypto />} />
+        </Routes>
+      </ScrollToTop>
+    </AnimatePresence>
   );
-}
+};
 
 export default App;
