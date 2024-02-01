@@ -90,7 +90,7 @@ const Home = () => {
             </LoaderWrapper>
           ) : (
             <>
-              {coinData.map((item, index) => (
+              {coinData?.map((item, index) => (
                 <div className="gridTabs" key={index}>
                   <div className="numberBlock">
                     <h4>{index + 1}</h4>
