@@ -385,9 +385,12 @@ export const NewsMainStyles = styled.div`
   .newsgrid {
     height: fit-content;
     width: 100%;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-    grid-gap: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
     margin-top: 100px;
   }
 `;

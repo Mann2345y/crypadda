@@ -75,38 +75,32 @@ const News = () => {
             </LoaderWrapper>
           ) : (
             <div className="newsgrid">
-              {Object.keys(news).length > 0 &&
-                news.map((item, index) => (
-                  <NewsCard key={index}>
-                    <a href={item?.url}>
-                      <div className="cardHeader">
-                        <h4>
-                          {item.name
-                            .replace("", "")
-                            .replace("", "")
-                            .replace("", "")
-                            .replace("", "")
-                            .substring(0, 60)}
-                          ...
-                        </h4>
-                        <NewsImage url={item?.image?.thumbnail?.contentUrl} />
+              {news?.map((item, index) => (
+                <NewsCard key={index}>
+                  <a href={item?.url}>
+                    <div className="cardHeader">
+                      <h4>
+                        {item?.title?.slice(0, 50)}
+                        ...
+                      </h4>
+                      <NewsImage url={item?.urlToImage} />
+                    </div>
+                    <p>{item?.description?.slice(0, 100)} ...</p>
+                    <div className="cardFooter">
+                      <div className="newslink">
+                        <div
+                          className="sourceIcon"
+                          style={{
+                            backgroundImage: `url(${item?.urlToImage})`,
+                          }}
+                        />
+                        <h5>{item?.author}</h5>
                       </div>
-                      <p>{item.description.substring(0, 100)} ...</p>
-                      <div className="cardFooter">
-                        <div className="newslink">
-                          <div
-                            className="sourceIcon"
-                            style={{
-                              backgroundImage: `url(${item?.provider[0]?.image?.thumbnail?.contentUrl})`,
-                            }}
-                          />
-                          <h5>{item?.provider[0]?.name}</h5>
-                        </div>
-                        <h4>7 hours ago</h4>
-                      </div>
-                    </a>
-                  </NewsCard>
-                ))}
+                      <h4>7 hours ago</h4>
+                    </div>
+                  </a>
+                </NewsCard>
+              ))}
             </div>
           )}
         </>

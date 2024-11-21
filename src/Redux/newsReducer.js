@@ -10,7 +10,7 @@ const STATUS = Object.freeze({
 const newsSlice = createSlice({
   name: "news",
   initialState: {
-    data: {},
+    data: [],
     status: STATUS.SUCCESS,
   },
   reducers: {
@@ -31,23 +31,17 @@ export const getNews = (newscategory, count) => {
     try {
       dispatch(setStatus(STATUS.LOADING));
       const axiosinstance = axios.create({
-        baseURL: "https://bing-news-search1.p.rapidapi.com/news/search",
+        baseURL: "https://newsapi.org/v2/everything",
+      });
+      const { data } = await axiosinstance.get("", {
         params: {
           q: newscategory,
-          count: count,
-          textDecorations: "true",
-          freshness: "Day",
-          safeSearch: "Off",
-        },
-        headers: {
-          "X-BingApis-SDK": "true",
-          "X-RapidAPI-Key":
-            "e2f5df08f1mshca0a2257a626bc3p1978d7jsnd3efc97e7289",
-          "X-RapidAPI-Host": "bing-news-search1.p.rapidapi.com",
+          apiKey: "47bac319131345b5962ab033857d2028",
+          lang: "EN",
         },
       });
-      const { data } = await axiosinstance.get("");
-      dispatch(setData(data.value));
+      console.log({ data });
+      dispatch(setData(data?.articles?.slice(0, 15)));
       dispatch(setStatus(STATUS.SUCCESS));
     } catch (error) {
       dispatch(setData(error));
