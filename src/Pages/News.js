@@ -83,18 +83,18 @@ const News = () => {
                         {item?.title?.slice(0, 50)}
                         ...
                       </h4>
-                      <NewsImage url={item?.urlToImage} />
+                      <NewsImage url={item?.imageurl} />
                     </div>
-                    <p>{item?.description?.slice(0, 100)} ...</p>
+                    <p>{item?.body?.slice(0, 100)} ...</p>
                     <div className="cardFooter">
                       <div className="newslink">
                         <div
                           className="sourceIcon"
                           style={{
-                            backgroundImage: `url(${item?.urlToImage})`,
+                            backgroundImage: `url(${item?.source_info?.img})`,
                           }}
                         />
-                        <h5>{item?.author}</h5>
+                        <h5>{item?.source_info?.name}</h5>
                       </div>
                       <h4>7 hours ago</h4>
                     </div>

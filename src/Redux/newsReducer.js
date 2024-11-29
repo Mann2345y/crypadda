@@ -31,17 +31,18 @@ export const getNews = (newscategory, count) => {
     try {
       dispatch(setStatus(STATUS.LOADING));
       const axiosinstance = axios.create({
-        baseURL: "https://newsapi.org/v2/everything",
+        baseURL: "https://min-api.cryptocompare.com/data/v2/news/",
       });
       const { data } = await axiosinstance.get("", {
         params: {
-          q: newscategory,
-          apiKey: "47bac319131345b5962ab033857d2028",
+          categories: newscategory,
+          api_key:
+            "7c0073699c7ee7c7dd95d029ae59b6826008f0e07d99a055b6e2f374c7c821fd",
           lang: "EN",
         },
       });
       console.log({ data });
-      dispatch(setData(data?.articles?.slice(0, 15)));
+      dispatch(setData(data?.Data?.slice(0, 15)));
       dispatch(setStatus(STATUS.SUCCESS));
     } catch (error) {
       dispatch(setData(error));
